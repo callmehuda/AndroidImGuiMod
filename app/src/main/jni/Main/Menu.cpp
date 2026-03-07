@@ -22,8 +22,8 @@ namespace Menu {
         if (!bShowMenu)
             return;
         ImGui::SetNextWindowSize(window_size, ImGuiCond_FirstUseEver);
-        if(ImGui::Begin("horoni@github.com | GAMENAME [x64]")) {
-            ImGui::Checkbox("Test Checkbox", &isTest);
+        if(ImGui::Begin("Test | Magic Chess GoGo [x64]")) {
+            ImGui::Checkbox("Aurora", &snowAurora);
         }
         ImGui::End();
         //ImGui::ShowDemoWindow();

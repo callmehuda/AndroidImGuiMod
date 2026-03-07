@@ -3,6 +3,6 @@
 
 // define global variables for hooks here
 
-inline bool isTest = false;
+inline bool snowAurora = false;
 
 #endif // HORONI_VARS_H

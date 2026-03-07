@@ -12,6 +12,8 @@
 #include "JNIHelper.hpp"
 #include "xdl.h"
 
+#define ENGINE_UNITY 1
+
 #define OBFS(...) OBFUSCATE(__VA_ARGS__)
 
 /* If i will sell cheat or release to public access
@@ -31,7 +33,8 @@ void load_jni() {
 #if ENGINE_UNITY
     if (xdl_open("libunity.so", XDL_TRY_FORCE_LOAD)) {
         LOGI("load_jni(): Unity engine");
-        BNM::Loading::TryLoadByJNI(env);
+        void* handle = dlopen("liblogic.so", RTLD_LAZY);
+        BNM::Loading::TryLoadByDlfcnHandle(handle);
         BNM::Loading::AddOnLoadedEvent(ofst::Init);
         BNM::Loading::AddOnLoadedEvent(Setup_Hooks);
     }
