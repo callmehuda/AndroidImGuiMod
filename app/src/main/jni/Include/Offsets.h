@@ -27,8 +27,8 @@ namespace ofst {
     BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
     BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
     uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
-        ? overrideMethod.GetOffset()
-        : method.GetOffset();
+        ? snowAuroraoverrideMethod.GetOffset()
+        : snowAuroraMethod.GetOffset();
 
     BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
     BNM::MethodBase isPreparePhase = MCLogicUtils.GetMethod("IsPreparePhase", 0);

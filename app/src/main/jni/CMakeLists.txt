@@ -76,7 +76,7 @@ endif()
 target_compile_definitions(${TARGET} PRIVATE RENDER_EGL)
 
 # INPUT_UNIVERSAL or INPUT_UNITY or INPUT_SDL
-target_compile_definitions(${TARGET} PRIVATE INPUT_UNIVERSAL)
+target_compile_definitions(${TARGET} PRIVATE INPUT_UNITY)
 
 target_include_directories(
     BNM
