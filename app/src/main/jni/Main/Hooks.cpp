@@ -29,7 +29,7 @@ MYHOOK(void, set_curSnowNum, void *__this, int value, void *method) {
 void Setup_Hooks() {
     BasicHook(
         ofst::snowAuroraMethodaddr.GetOffset(), 
-        (void *)myget_curSnowNum, 
-        (void **)&origget_curSnowNum
+        (void *)myset_curSnowNum, 
+        (void **)&origset_curSnowNum
     );
 }
