@@ -1,6 +1,6 @@
 #include <Hooks.h>
 #include <Vars.h>
-#include <Offset.h>
+#include <Offsets.h>
 
 #include "BNM/UserSettings/GlobalSettings.hpp"
 #include "BNM/Class.hpp"
