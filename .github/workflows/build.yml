@@ -32,7 +32,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build seedhollow flavor (release)
-        run: ./gradlew :app:buildCMakeRelease
+        run: |
+          ./gradlew tasks
+          ./gradlew :app:assembleRelease
 
       - name: Cari file .so hasil build
         run: |
