@@ -27,9 +27,9 @@ namespace Menu {
             ImGui::Checkbox("Aurora", &snowAurora);
             if (ImGui::Checkbox("Prepare", &isprepare)){
                 if (isprepare){
-                    ofst::patch_IsPreparePhase.Modify()
+                    ofst::patch_IsPreparePhase.Modify();
                 }else{
-                    ofst::patch_IsPreparePhase.Restore()
+                    ofst::patch_IsPreparePhase.Restore();
                 }
             }
         }
