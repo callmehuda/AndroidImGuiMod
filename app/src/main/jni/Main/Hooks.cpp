@@ -15,45 +15,42 @@ void Main$$Draw(BNM::IL2CPP::Il2CppObject *instance, void *gameTime)
     ofs::Main::spriteBatch.Get();
 }*/
 
-MYHOOK(void, set_curSnowNum, void *__this, int value, void *method) {
+MYHOOK(void, set_curSnowNum, void *instance, int value) {
 
     if (snowAurora) {
         value = 6; // aktif saat checkbox dicentang
     }
 
-    origset_curSnowNum(__this, value, method);
+    origset_curSnowNum(instance, value);
 }
 
-MYHOOK(bool, IsPreparePhase, void *method) {
-    if (isprepare) return true;
-    return origIsPreparePhase(method);
+MYHOOK(bool, IsPreparePhase) {
+    bool result = origIsPreparePhase();
+
+    if (forceIsPrepare) return true;
+
+    return result; // kalau forceIsPrepare false, return nilai asli
 }
 
 // <== Initializing ==>
 void Setup_Hooks() {
     
-    BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
-    BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
-    BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
-    uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
-        ? snowAuroraoverrideMethod.GetOffset()
-        : snowAuroraMethod.GetOffset();
-
+    auto auroraClass = BNM::Class("Battle", "MCLogicSpecialMonsterAurora");
+    auto snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
 
     BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
     BNM::MethodBase isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
-    uintptr_t prepareaddr = isPreparePhaseMethod.GetOffset();
     
     
-    
-    BasicHook(
-        snowAuroraMethodaddr, 
-        (void *)myset_curSnowNum, 
-        (void **)&origset_curSnowNum
+    BNM::VirtualHook(
+        auroraClass,
+        snowAuroraMethod,
+        myset_curSnowNum,
+        origset_curSnowNum
     );
-    BasicHook(
-        prepareaddr, 
-        (void *)myIsPreparePhase, 
-        (void **)&origIsPreparePhase
+    BNM::BasicHook(
+        isPreparePhaseMethod, 
+        myIsPreparePhase, 
+        origIsPreparePhase
     );    
 }
