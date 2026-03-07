@@ -25,11 +25,33 @@ MYHOOK(void, set_curSnowNum, void *__this, int value, void *method) {
     origset_curSnowNum(__this, value, method);
 }
 
+MYHOOK(bool, IsPreparePhase, void *method) {
+    if (isprepare) return true;
+    return origIsPreparePhase(method);
+}
+
+BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
+BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
+BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
+uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
+    ? snowAuroraoverrideMethod.GetOffset()
+    : snowAuroraMethod.GetOffset();
+
+
+BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
+BNM::MethodBase isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
+uintptr_t prepareaddr = isPreparePhaseMethod.GetOffset();
+
 // <== Initializing ==>
 void Setup_Hooks() {
     BasicHook(
-        ofst::snowAuroraMethodaddr, 
+        snowAuroraMethodaddr, 
         (void *)myset_curSnowNum, 
         (void **)&origset_curSnowNum
     );
+    BasicHook(
+        prepareaddr, 
+        (void *)myIsPreparePhase, 
+        (void **)&origIsPreparePhase
+    );    
 }

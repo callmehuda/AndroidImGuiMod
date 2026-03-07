@@ -25,13 +25,7 @@ namespace Menu {
         ImGui::SetNextWindowSize(window_size, ImGuiCond_FirstUseEver);
         if(ImGui::Begin("Test | Magic Chess GoGo [x64]")) {
             ImGui::Checkbox("Aurora", &snowAurora);
-            if (ImGui::Checkbox("Prepare", &isprepare)){
-                if (isprepare){
-                    ofst::patch_IsPreparePhase.Modify();
-                }else{
-                    ofst::patch_IsPreparePhase.Restore();
-                }
-            }
+            ImGui::Checkbox("Prepare", &isprepare)
         }
         ImGui::End();
         //ImGui::ShowDemoWindow();
