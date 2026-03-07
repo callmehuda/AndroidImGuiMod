@@ -1,5 +1,6 @@
 #include <Hooks.h>
 #include <Vars.h>
+#include <Offset.h>
 
 #include "BNM/UserSettings/GlobalSettings.hpp"
 #include "BNM/Class.hpp"
@@ -15,20 +16,19 @@ void Main$$Draw(BNM::IL2CPP::Il2CppObject *instance, void *gameTime)
     ofs::Main::spriteBatch.Get();
 }*/
 
-MYHOOK(int, get_curSnowNum, void* self) {
-    if (self != nullptr && snowAurora){
-            return 6;
+MYHOOK(void, set_curSnowNum, void *__this, int value, void *method) {
+
+    if (snowAurora) {
+        value = 6; // aktif saat checkbox dicentang
     }
-    
-    return origget_curSnowNum(self);
+
+    origset_curSnowNum(__this, value, method);
 }
 
 // <== Initializing ==>
 void Setup_Hooks() {
-    auto auroraClass = BNM::Class("Battle", "MCLogicSpecialMonsterAurora", BNM::Image("Assembly-CSharp"));
-    BNM::Method<int> snowAuroraMethod = auroraClass.GetMethod("get_curSnowNum", 0);
     BasicHook(
-        snowAuroraMethod.GetOffset(), 
+        ofst::snowAuroraMethodaddr.GetOffset(), 
         (void *)myget_curSnowNum, 
         (void **)&origget_curSnowNum
     );

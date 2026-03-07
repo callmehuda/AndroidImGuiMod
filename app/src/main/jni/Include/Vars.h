@@ -4,5 +4,6 @@
 // define global variables for hooks here
 
 inline bool snowAurora = false;
+inline bool isprepare = false;
 
 #endif // HORONI_VARS_H
