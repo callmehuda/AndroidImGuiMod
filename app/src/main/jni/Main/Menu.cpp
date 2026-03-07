@@ -11,7 +11,6 @@
 #include <fonts/Roboto-Regular.h>
 
 #include <Vars.h>
-#include <Offsets.h>
 
 const ImVec2 window_size = ImVec2(500, 500);
 

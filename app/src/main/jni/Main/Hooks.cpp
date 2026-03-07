@@ -1,6 +1,5 @@
 #include <Hooks.h>
 #include <Vars.h>
-#include <Offsets.h>
 
 #include "BNM/UserSettings/GlobalSettings.hpp"
 #include "BNM/Class.hpp"
@@ -30,20 +29,23 @@ MYHOOK(bool, IsPreparePhase, void *method) {
     return origIsPreparePhase(method);
 }
 
-BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
-BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
-BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
-uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
-    ? snowAuroraoverrideMethod.GetOffset()
-    : snowAuroraMethod.GetOffset();
-
-
-BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
-BNM::MethodBase isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
-uintptr_t prepareaddr = isPreparePhaseMethod.GetOffset();
-
 // <== Initializing ==>
 void Setup_Hooks() {
+    
+    BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
+    BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
+    BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
+    uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
+        ? snowAuroraoverrideMethod.GetOffset()
+        : snowAuroraMethod.GetOffset();
+
+
+    BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
+    BNM::MethodBase isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
+    uintptr_t prepareaddr = isPreparePhaseMethod.GetOffset();
+    
+    
+    
     BasicHook(
         snowAuroraMethodaddr, 
         (void *)myset_curSnowNum, 
