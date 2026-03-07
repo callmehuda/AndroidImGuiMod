@@ -21,17 +21,17 @@
 namespace ofst {
     inline bool inited = false;
     
-    MemoryPatch patch_IsPreparePhase;
+    inline MemoryPatch patch_IsPreparePhase;
 
-    BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
-    BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
-    BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
-    uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
+    inline BNM::Class auroraClass("Battle", "MCLogicSpecialMonsterAurora");
+    inline BNM::MethodBase snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
+    inline BNM::MethodBase snowAuroraoverrideMethod = snowAuroraMethod.GetOverride();
+    inline uintptr_t snowAuroraMethodaddr = snowAuroraoverrideMethod.GetInfo()
         ? snowAuroraoverrideMethod.GetOffset()
         : snowAuroraMethod.GetOffset();
 
-    BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
-    BNM::MethodBase isPreparePhase = MCLogicUtils.GetMethod("IsPreparePhase", 0);
+    inline BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
+    inline BNM::MethodBase isPreparePhase = MCLogicUtils.GetMethod("IsPreparePhase", 0);
 
     
     
