@@ -1,6 +1,10 @@
 #include <Hooks.h>
 #include <Vars.h>
 
+#include "BNM/UserSettings/GlobalSettings.hpp"
+#include "BNM/Class.hpp"
+#include "BNM/Image.hpp"
+#include "BNM/Method.hpp"
 
 // <== Hooks ==>    
 
