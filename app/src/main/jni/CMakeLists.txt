@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8...3.26)
 project(ImGui_Cheat)
 # Shared library name
-set(TARGET MCL)
+set(TARGET my)
 
 # For libmain.so
 find_package(JNI REQUIRED)

@@ -31,17 +31,17 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build seedhollow flavor (release)
+      - name: Build release
         run: |
           ./gradlew tasks
           ./gradlew :app:assembleRelease
 
-      - name: Cari file .so hasil build
+      - name: Find .so file from build
         run: |
           find . -name "*.so" | grep -v ".gradle" | sort
 
       - name: Upload .so artifact
         uses: actions/upload-artifact@v4
         with:
-          name: libMCL-arm64
+          name: libmy-arm64
           path: app/build/intermediates/stripped_native_libs/*/*/*/*/*.so
