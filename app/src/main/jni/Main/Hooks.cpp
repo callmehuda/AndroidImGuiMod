@@ -36,10 +36,10 @@ MYHOOK(bool, IsPreparePhase) {
 void Setup_Hooks() {
     
     auto auroraClass = BNM::Class("Battle", "MCLogicSpecialMonsterAurora");
-    auto snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
+    BNM::Method<void> snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
 
-    BNM::Class MCLogicUtils("Battle", "MCLogicUtils");
-    BNM::MethodBase isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
+    auto MCLogicUtils = BNM::Class("Battle", "MCLogicUtils");
+    BNM::Method<bool> isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
     
     
     BNM::VirtualHook(
