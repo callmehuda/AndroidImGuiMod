@@ -617,7 +617,7 @@ public:
 		if (!address_.contains(funcName) || !address_[funcName]) address_[funcName] = static_cast<void*>(GetProcAddress(static_cast<HMODULE>(hmodule_), funcName.c_str()));
 #elif  ANDROID_MODE || LINUX_MODE || IOS_MODE || HARMONYOS_MODE
 		if (address_.find(funcName) == address_.end() || !address_[funcName]) {
-			address_[funcName] = dlsym(hmodule_, funcName.c_str());
+			address_[funcName] = xdl_sym(hmodule_, funcName.c_str(), nullptr);
 		}
 #endif
 

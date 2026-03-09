@@ -38,12 +38,12 @@ void Setup_Hooks() {
     
     
     DobbyHook(
-        snowAuroraMethod->address,
+        snowAuroraMethod->function,
         (void*)myset_curSnowNum,
         (void**)&origset_curSnowNum
     );
     DobbyHook(
-        isPreparePhaseMethod->address, 
+        isPreparePhaseMethod->function, 
         (void*)myIsPreparePhase, 
         (void**)&origIsPreparePhase
     );    
