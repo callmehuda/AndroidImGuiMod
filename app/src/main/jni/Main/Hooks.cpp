@@ -30,11 +30,11 @@ MYHOOK(bool, IsPreparePhase) {
 // <== Initializing ==>
 void Setup_Hooks() {
     
-    auto* assembly = UnityResolve::Get("Assembly-CSharp.dll");
+    auto assembly = UnityResolve::Get("Assembly-CSharp.dll");
 
-    auto* snowAuroraMethod = assembly->Get("MCLogicSpecialMonsterAurora", "*")->Get<UnityResolve::Method>("set_curSnowNum", {"System.Int32"});
+    auto snowAuroraMethod = assembly->Get("MCLogicSpecialMonsterAurora", "*")->Get<UnityResolve::Method>("set_curSnowNum", {"System.Int32"});
     
-    auto* isPreparePhaseMethod = assembly->Get("MCLogicUtils", "*")->Get<UnityResolve::Method>("IsPreparePhase");
+    auto isPreparePhaseMethod = assembly->Get("MCLogicUtils", "*")->Get<UnityResolve::Method>("IsPreparePhase");
     
     
     DobbyHook(
