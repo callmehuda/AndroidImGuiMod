@@ -13,7 +13,7 @@ void Main$$Draw(BNM::IL2CPP::Il2CppObject *instance, void *gameTime)
 MYHOOK(void, set_curSnowNum, void *instance, int value) {
 
     if (snowAurora) {
-        value = 6; // aktif saat checkbox dicentang
+        value = 6; 
     }
 
     origset_curSnowNum(instance, value);

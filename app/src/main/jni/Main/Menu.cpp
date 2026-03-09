@@ -13,7 +13,7 @@
 #include <Vars.h>
 #include <Offsets.h>
 
-const ImVec2 window_size = ImVec2(500, 500);
+const ImVec2 window_size = ImVec2(300, 300);
 
 float g_ScreenWidth, g_ScreenHeight;
 

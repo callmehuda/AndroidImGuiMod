@@ -46,13 +46,12 @@ void load_jni() {
         // BNM::Loading::AddOnLoadedEvent(Setup_Hooks);
     // }
 // #endif
-    UnityResolve::Init(dlopen("liblogic.so", RTLD_NOW), UnityResolve::Mode::Il2Cpp);
+    UnityResolve::Init(dlopen("libil2cpp.so", RTLD_NOW), UnityResolve::Mode::Il2Cpp);
     UnityResolve::ThreadAttach();
     ofst::Init();
     Setup_Hooks();
 
     LOGI("load_jni(): Initialized %p", env);
-    UnityResolve::ThreadDetach();
 }
 
 __attribute__((constructor))
