@@ -1,5 +1,6 @@
 #ifndef HORONI_HOOKS_H
 #define HORONI_HOOKS_H
+#include "UnityResolve.hpp"
 
 #define MYHOOK(ret, func, ...) \
     ret (*orig##func)(__VA_ARGS__); \

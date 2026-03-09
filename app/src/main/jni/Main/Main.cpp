@@ -6,13 +6,18 @@
 #include <ImGuiHook.h>
 #include <BNM/Loading.hpp>
 
+#define USE_GLM
+#include "UnityResolve.hpp"
+
 #include <Offsets.h>
 #include <Hooks.h>
 
 #include "JNIHelper.hpp"
 #include "xdl.h"
 
-#define ENGINE_UNITY 1
+
+
+// #define ENGINE_UNITY 1
 
 #define OBFS(...) OBFUSCATE(__VA_ARGS__)
 
@@ -30,19 +35,24 @@ void load_jni() {
         env = JNIHelper::GetEnv();
 
     // if Unity
-#if ENGINE_UNITY
-    if (xdl_open("libunity.so", XDL_TRY_FORCE_LOAD)) {
-        LOGI("load_jni(): Unity engine");
-        BNM::Loading::AllowLateInitHook();
-        //void* handle = dlopen("liblogic.so", RTLD_LAZY);
-        //BNM::Loading::TryLoadByDlfcnHandle(handle);
-        BNM::Loading::TryLoadByJNI(env);
-        BNM::Loading::AddOnLoadedEvent(ofst::Init);
-        BNM::Loading::AddOnLoadedEvent(Setup_Hooks);
-    }
-#endif
+// #if ENGINE_UNITY
+    // if (xdl_open("libunity.so", XDL_TRY_FORCE_LOAD)) {
+        // LOGI("load_jni(): Unity engine");
+        // BNM::Loading::AllowLateInitHook();
+        // //void* handle = dlopen("liblogic.so", RTLD_LAZY);
+        // //BNM::Loading::TryLoadByDlfcnHandle(handle);
+        // BNM::Loading::TryLoadByJNI(env);
+        // BNM::Loading::AddOnLoadedEvent(ofst::Init);
+        // BNM::Loading::AddOnLoadedEvent(Setup_Hooks);
+    // }
+// #endif
+    UnityResolve::Init(dlopen("liblogic.so", RTLD_NOW), UnityResolve::Mode::Il2Cpp);
+    UnityResolve::ThreadAttach();
+    ofst::Init();
+    Setup_Hooks();
 
     LOGI("load_jni(): Initialized %p", env);
+    UnityResolve::ThreadDetach();
 }
 
 __attribute__((constructor))

@@ -1,11 +1,6 @@
 #include <Hooks.h>
 #include <Vars.h>
 
-#include "BNM/UserSettings/GlobalSettings.hpp"
-#include "BNM/Class.hpp"
-#include "BNM/Image.hpp"
-#include "BNM/Method.hpp"
-
 // <== Hooks ==>    
 
 /*void (*Main$$_Draw)(BNM::IL2CPP::Il2CppObject *instance, void *gameTime);
@@ -29,28 +24,27 @@ MYHOOK(bool, IsPreparePhase) {
 
     if (forceIsPrepare) return true;
 
-    return result; // kalau forceIsPrepare false, return nilai asli
+    return result; 
 }
 
 // <== Initializing ==>
 void Setup_Hooks() {
     
-    auto auroraClass = BNM::Class("Battle", "MCLogicSpecialMonsterAurora");
-    BNM::Method<void> snowAuroraMethod = auroraClass.GetMethod("set_curSnowNum", 1);
+    auto* assembly = UnityResolve::Get("Assembly-CSharp.dll");
 
-    auto MCLogicUtils = BNM::Class("Battle", "MCLogicUtils");
-    BNM::Method<bool> isPreparePhaseMethod = MCLogicUtils.GetMethod("IsPreparePhase", 0);
+    auto* snowAuroraMethod = assembly->Get("MCLogicSpecialMonsterAurora", "*")->Get<UnityResolve::Method>("set_curSnowNum", {"System.Int32"});
+    
+    auto* isPreparePhaseMethod = assembly->Get("MCLogicUtils", "*")->Get<UnityResolve::Method>("IsPreparePhase");
     
     
-    BNM::VirtualHook(
-        auroraClass,
-        snowAuroraMethod,
-        myset_curSnowNum,
-        origset_curSnowNum
+    DobbyHook(
+        snowAuroraMethod->address,
+        (void*)myset_curSnowNum,
+        (void**)&origset_curSnowNum
     );
-    BNM::BasicHook(
-        isPreparePhaseMethod, 
-        myIsPreparePhase, 
-        origIsPreparePhase
+    DobbyHook(
+        isPreparePhaseMethod->address, 
+        (void*)myIsPreparePhase, 
+        (void**)&origIsPreparePhase
     );    
 }
