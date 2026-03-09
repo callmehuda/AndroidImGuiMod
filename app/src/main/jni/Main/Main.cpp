@@ -6,7 +6,7 @@
 #include <ImGuiHook.h>
 #include <BNM/Loading.hpp>
 
-#define USE_GLM
+//#define USE_GLM
 #include "UnityResolve.hpp"
 
 #include <Offsets.h>
