@@ -1,6 +1,6 @@
 #include <Hooks.h>
 #include <Vars.h>
-
+#include <Dobby/dobby.h>
 // <== Hooks ==>    
 
 /*void (*Main$$_Draw)(BNM::IL2CPP::Il2CppObject *instance, void *gameTime);
