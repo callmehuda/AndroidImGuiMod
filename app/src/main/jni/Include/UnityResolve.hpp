@@ -1,5 +1,6 @@
 #ifndef UNITYRESOLVE_HPP
 #define UNITYRESOLVE_HPP
+#include "xdl.h"
 
 // ============================== 自动检测当前环境 ==============================
 
