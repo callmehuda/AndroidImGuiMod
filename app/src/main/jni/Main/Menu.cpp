@@ -25,6 +25,9 @@ namespace Menu {
         if(ImGui::Begin("Test | Magic Chess GoGo [x64]")) {
             ImGui::Checkbox("Aurora", &snowAurora);
             ImGui::Checkbox("Prepare", &forceIsPrepare);
+            if (ImGui::Button("Tambah Es")){
+                ofst::startPreparePhaseMethod->Invoke<void>();
+            }
         }
         ImGui::End();
         //ImGui::ShowDemoWindow();

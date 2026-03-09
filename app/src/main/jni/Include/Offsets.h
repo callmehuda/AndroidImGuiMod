@@ -1,6 +1,8 @@
 #ifndef HORONI_OFFSETS_H
 #define HORONI_OFFSETS_H
 
+#include "UnityResolve.hpp"
+
 //! BNM::IL2CPP::Il2CppObject if class inherits System.Object or nothing
 //! BNM::UnityEngine::Object if class inherits UnityEngine.ScriptableObject
 //! BNM::UnityEngine::MonoBehaviour if class inherits UnityEngine.MonoBehaviour

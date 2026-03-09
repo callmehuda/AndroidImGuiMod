@@ -1,8 +1,8 @@
 #ifndef HORONI_MENU_H
 #define HORONI_MENU_H
 
-#define SCREEN_WIDTH 2400
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 720
 
 extern float g_ScreenWidth, g_ScreenHeight;
 
