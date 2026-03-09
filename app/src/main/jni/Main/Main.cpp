@@ -15,7 +15,7 @@
 #include "JNIHelper.hpp"
 #include "xdl.h"
 
-
+#define ANDROID_MODE 1
 
 // #define ENGINE_UNITY 1
 
