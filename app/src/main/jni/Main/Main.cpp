@@ -33,7 +33,7 @@ void load_jni() {
 #if ENGINE_UNITY
     if (xdl_open("libunity.so", XDL_TRY_FORCE_LOAD)) {
         LOGI("load_jni(): Unity engine");
-        BNM::AllowLateInitHook();
+        BNM::Loading::AllowLateInitHook();
         //void* handle = dlopen("liblogic.so", RTLD_LAZY);
         //BNM::Loading::TryLoadByDlfcnHandle(handle);
         BNM::Loading::TryLoadByJNI(env);
