@@ -50,6 +50,7 @@ void load_jni() {
     UnityResolve::ThreadAttach();
     ofst::Init();
     Setup_Hooks();
+    UnityResolve::ThreadDetach();
 
     LOGI("load_jni(): Initialized %p", env);
 }
