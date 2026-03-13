@@ -24,10 +24,10 @@ namespace Menu {
             return;
         ImGui::SetNextWindowSize(window_size, ImGuiCond_FirstUseEver);
         if(ImGui::Begin("Test | Magic Chess GoGo [x64]")) {
-            ImGui::Checkbox("Aurora", &snowAurora);
-            ImGui::Checkbox("Prepare", &forceIsPrepare);
+            //ImGui::Checkbox("Aurora", &snowAurora);
+            //ImGui::Checkbox("Prepare", &forceIsPrepare);
             if (ImGui::Button("Tambah Es")){
-                ofst::startPreparePhaseMethod->Invoke<void>();
+                ofst::startPreparePhasefunc();
             }
         }
         ImGui::End();

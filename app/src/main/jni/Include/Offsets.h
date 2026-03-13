@@ -17,9 +17,9 @@
 // Offsets, Fields, Classes, Properties...
 namespace ofst {
     inline bool inited = false;
-    inline UnityResolve::Method* startPreparePhaseMethod = nullptr;
 
     void Init();
+    void startPreparePhasefunc();
 
 }
 
