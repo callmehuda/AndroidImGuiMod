@@ -98,26 +98,23 @@ void hack_thread() {
         DobbyHook(sym_input,(dobby_dummy_func_t)Input,(dobby_dummy_func_t*)&origInput);
     }
 }
-__attribute__((constructor))
-void lib_main() {
-    std::thread(hack_thread).detach();
-}
+// __attribute__((constructor))
+// void lib_main() {
+    // std::thread(hack_thread).detach();
+// }
 
-extern "C"
-JNIEXPORT jint JNICALL
+JNIEXPORT jint JNICALL 
 JNI_OnLoad(JavaVM *vm, void *reserved) {
     JNIEnv *env;
+    jvm = vm;
     vm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
-        return JNI_ERR; // Failed to obtain JNIEnv
-    }
+    // BNM::Loading::TryLoadByJNI(env); // BNM loading, comment this out if you don't use BNM
 
-    if (JNILoader::RegisterAll(env) != JNI_OK)
-        return JNI_ERR;
 
-    if (RegisterMenu(env) != 0)
-        return JNI_ERR;
-
+    int ret;
+    pthread_t ntid;
+    if ((ret = pthread_create(&ntid, nullptr, hack_thread, nullptr)))
+        LOGE("can't create thread: %s\n", strerror(ret));
     return JNI_VERSION_1_6;
 }
