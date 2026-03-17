@@ -77,15 +77,16 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
 void hack_thread() {
     sleep(3);
-    LOGD("Hack App Done!!! %d", getpid());
+    SetupImgui();
+    LOGI("Hack App Done!!!");
 
     auto handle = xdl_open("libil2cpp.so", 0);
-    LOGD("Handle %p", handle);
+    LOGI("Handle %p", handle);
     il2cpp_resolve_icall = (void *(*)(const char *)) xdl_sym(handle, "il2cpp_resolve_icall",
                                                              nullptr);
-    LOGD("il2cpp_resolve_icall %p", il2cpp_resolve_icall);
+    LOGI("il2cpp_resolve_icall %p", il2cpp_resolve_icall);
     auto TimeHack = il2cpp_resolve_icall("UnityEngine.Time::set_timeScale(System.Single)");
-    LOGD("TimeHack %p", TimeHack);
+    LOGI("TimeHack %p", TimeHack);
     DobbyHook(TimeHack, (dobby_dummy_func_t) set_timeScale, (dobby_dummy_func_t *) &_set_timeScale);
 
 
@@ -100,4 +101,23 @@ void hack_thread() {
 __attribute__((constructor))
 void lib_main() {
     std::thread(hack_thread).detach();
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env;
+    vm->GetEnv((void **) &env, JNI_VERSION_1_6);
+
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+        return JNI_ERR; // Failed to obtain JNIEnv
+    }
+
+    if (JNILoader::RegisterAll(env) != JNI_OK)
+        return JNI_ERR;
+
+    if (RegisterMenu(env) != 0)
+        return JNI_ERR;
+
+    return JNI_VERSION_1_6;
 }

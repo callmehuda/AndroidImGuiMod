@@ -21,19 +21,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      #- name: Set up Android SDK
+        #uses: android-actions/setup-android@v3
 
-      - name: Install NDK 27.1.12297006 and cmake
-        run: |
-          sdkmanager "ndk;27.1.12297006" "cmake;3.30.5"
+      #- name: Install NDK 27.1.12297006 and cmake
+        #run: |
+          #sdkmanager "ndk;27.1.12297006" "cmake;3.30.5"
           
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build release
         run: |
-          ./gradlew tasks
           ./gradlew assembleRelease
 
       - name: Find .so file from build
