@@ -34,7 +34,7 @@ jobs:
       - name: Build release
         run: |
           ./gradlew tasks
-          ./gradlew :app:assembleRelease
+          ./gradlew assembleRelease
 
       - name: Find .so file from build
         run: |
