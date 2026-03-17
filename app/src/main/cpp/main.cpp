@@ -77,7 +77,6 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
 void hack_thread() {
     sleep(3);
-    SetupImgui();
     LOGI("Hack App Done!!!");
 
     auto handle = xdl_open("libil2cpp.so", 0);
@@ -98,23 +97,14 @@ void hack_thread() {
         DobbyHook(sym_input,(dobby_dummy_func_t)Input,(dobby_dummy_func_t*)&origInput);
     }
 }
-// __attribute__((constructor))
-// void lib_main() {
-    // std::thread(hack_thread).detach();
-// }
+__attribute__((constructor))
+void lib_main() {
+    pthread_t ptid;
+    pthread_create(&ptid, nullptr, hack_thread, nullptr);
+}
 
-JNIEXPORT jint JNICALL 
-JNI_OnLoad(JavaVM *vm, void *reserved) {
-    JNIEnv *env;
-    jvm = vm;
-    vm->GetEnv((void **) &env, JNI_VERSION_1_6);
-
-    // BNM::Loading::TryLoadByJNI(env); // BNM loading, comment this out if you don't use BNM
-
-
-    int ret;
-    pthread_t ntid;
-    if ((ret = pthread_create(&ntid, nullptr, hack_thread, nullptr)))
-        LOGE("can't create thread: %s\n", strerror(ret));
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
+    JNIEnv* env;
+    vm->GetEnv((void**)&env, JNI_VERSION_1_6);
     return JNI_VERSION_1_6;
 }
