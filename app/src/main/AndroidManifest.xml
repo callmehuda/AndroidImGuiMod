@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Application"
-        android:debuggable="true"
         android:extractNativeLibs="false">
         <meta-data
             android:name="xposedmodule"
